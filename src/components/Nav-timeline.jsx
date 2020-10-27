@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
@@ -12,11 +12,13 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import VertTimeline from './Vert-timeline';
-import dataItems from '../data/data';
+import genDataItems from '../data/generalData';
+import aapaItems from '../data/aapaData';
 
 const drawerWidth = 200;
 
@@ -93,10 +95,16 @@ const NavTimeline = (props) => {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [yearData, setYearData] = useState(null);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const _handleYearClick = (yearData) =>{
+    setYearData(yearData);
+    
   };
 
   const drawer = (
@@ -104,7 +112,15 @@ const NavTimeline = (props) => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {dataItems.map((item, index) => (
+        {genDataItems.map((item) => (
+          <ListItem button key={item.year} type='button' onClick={(e) => _handleYearClick(item)}>
+            <ListItemText primary={item.year} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {aapaItems.map((item, index) => (
           <ListItem button key={item.year}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={item.year} />
@@ -167,7 +183,8 @@ const NavTimeline = (props) => {
         </Hidden>
       </nav>
 
-      <VertTimeline dataItems={dataItems}/>
+      {yearData !== null ?  
+        (<VertTimeline yearData={yearData}/>) : <Skeleton />}
     </div>
   );
 }
