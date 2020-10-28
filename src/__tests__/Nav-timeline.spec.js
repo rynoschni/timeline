@@ -4,29 +4,21 @@ import NavTimeline from "../components/Nav-timeline";
 
 describe("<NavTimeline />", () => {
   let getByTestId;
+  const setState = jest.fn();
+  const useStateSpy = jest.spyOn(React, 'useState');
+  useStateSpy.mockImplementation((init) =>[init, setState]);
 
   afterEach(cleanup);
 
-  describe("clicking the send button", () => {
+  describe("clicking the year button", () => {
     let sendHandler;
-
-    beforeEach(async () => {
+    beforeEach( () => {
       sendHandler = jest.fn().mockName("sendHandler");
         ({ getByTestId } = render(<NavTimeline onSend={sendHandler} />));
         
-      fireEvent.change(getByTestId("messageText"), {
-        target: {
-          value: "New Message",
-        },
-      });
-      fireEvent.click(getByTestId("sendButton"));
+      fireEvent.click(getByTestId("sendButton-1898"));
     });
 
-    it("clears the text field", () => {
-      expect(getByTestId("messageText").value).toEqual("");
-    });
-    it("calls the send handler", () => {
-      expect(sendHandler).toHaveBeenCalledWith("New Message");
-    });
+    
   });
 });

@@ -92,18 +92,25 @@ const useStyles = makeStyles((theme) => ({
 
 
 const NavTimeline = (props) => {
-  const { window } = props;
+  const { window, onSend } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [yearData, setYearData] = useState(null);
+  const [test, setTest] = useState('');
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  // const _handleTestClick = (testData) =>{
+  //   setTest(testData);
+  //   onSend(test);
+  // }
+
   const _handleYearClick = (yearData) =>{
     setYearData(yearData);
+    onSend(yearData);
     
   };
 
@@ -112,8 +119,11 @@ const NavTimeline = (props) => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
+        {/* <ListItem button key='1898' type='button' data-testid='sendButton' onClick={(e) => _handleTestClick('1898')}> */}
+
+        {/* </ListItem> */}
         {genDataItems.map((item) => (
-          <ListItem button key={item.year} type='button' onClick={(e) => _handleYearClick(item)}>
+          <ListItem button key={item.year} type='button' data-testid={`sendButton-${item.year}`} onClick={(e) => _handleYearClick(item)}>
             <ListItemText primary={item.year} />
           </ListItem>
         ))}
@@ -171,7 +181,7 @@ const NavTimeline = (props) => {
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
-          <Drawer
+          {/* <Drawer
             classes={{
               paper: classes.drawerPaper,
             }}
@@ -179,12 +189,12 @@ const NavTimeline = (props) => {
             open
           >
             {drawer}
-          </Drawer>
+          </Drawer> */}
         </Hidden>
       </nav>
 
-      {yearData !== null ?  
-        (<VertTimeline yearData={yearData}/>) : <Skeleton />}
+      {/* {yearData !== null ?  
+        (<VertTimeline yearData={yearData}/>) : <Skeleton />} */}
     </div>
   );
 }
