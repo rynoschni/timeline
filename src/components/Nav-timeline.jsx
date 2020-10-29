@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
@@ -12,15 +13,17 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import Skeleton from '@material-ui/lab/Skeleton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+
+import Ghost from './Ghost';
+import GhostLoad from './GhostLoad';
 import VertTimeline from './Vert-timeline';
 import genDataItems from '../data/generalData';
 import aapaItems from '../data/aapaData';
 
-const drawerWidth = 200;
+const drawerWidth = 150;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,39 +95,39 @@ const useStyles = makeStyles((theme) => ({
 
 
 const NavTimeline = (props) => {
-  const { window, onSend } = props;
+  const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [yearData, setYearData] = useState(null);
-  const [test, setTest] = useState('');
+  const [ghostLoad, setGhostLoad] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  // const _handleTestClick = (testData) =>{
-  //   setTest(testData);
-  //   onSend(test);
-  // }
-
   const _handleYearClick = (yearData) =>{
-    setYearData(yearData);
-    onSend(yearData);
+    setYearData(yearData)
+    setGhostLoad(true)
+    setTimeout(() => {
+    setGhostLoad(false)
+    },2000)
+    ;
     
   };
+
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {/* <ListItem button key='1898' type='button' data-testid='sendButton' onClick={(e) => _handleTestClick('1898')}> */}
-
-        {/* </ListItem> */}
         {genDataItems.map((item) => (
-          <ListItem button key={item.year} type='button' data-testid={`sendButton-${item.year}`} onClick={(e) => _handleYearClick(item)}>
+          <ListItem button key={item.year} type='button' onClick={(e) => _handleYearClick(item)}>
             <ListItemText primary={item.year} />
+            <ListItemIcon>
+              <ArrowRightIcon />
+            </ListItemIcon>
           </ListItem>
         ))}
       </List>
@@ -181,7 +184,7 @@ const NavTimeline = (props) => {
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
-          {/* <Drawer
+          <Drawer
             classes={{
               paper: classes.drawerPaper,
             }}
@@ -189,12 +192,13 @@ const NavTimeline = (props) => {
             open
           >
             {drawer}
-          </Drawer> */}
+          </Drawer>
         </Hidden>
       </nav>
 
-      {/* {yearData !== null ?  
-        (<VertTimeline yearData={yearData}/>) : <Skeleton />} */}
+      {yearData !== null ?  
+        (!!ghostLoad === true ? <GhostLoad /> :
+        <VertTimeline yearData={yearData}/>) : <Ghost />}
     </div>
   );
 }

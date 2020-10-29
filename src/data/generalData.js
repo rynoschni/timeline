@@ -3,6 +3,7 @@ const genDataItems = [
     year: "1898",
     itemsData: [
       {
+        id: 1,
         contentTitle: "US Navy Corps",
         media: {
           name: "dunkirk beach",
@@ -10,7 +11,7 @@ const genDataItems = [
             url:
               "https://i2-prod.mirror.co.uk/incoming/article10847802.ece/ALTERNATES/s810/PAY-Dunkirk-in-colour.jpg",
           },
-          type: "IMAGE",
+          type: "img",
         },
         contentText:
           "The U.S. Congress authorizes the establishment of the U.S. Navy Hospital Corps.",
@@ -23,6 +24,7 @@ const genDataItems = [
     year: "1943",
     itemsData: [
       {
+        id: 1,
         contentTitle: "Battalion Surgeon's Assistant",
         media: {
           name: "dunkirk beach",
@@ -30,7 +32,7 @@ const genDataItems = [
             url:
               "https://i2-prod.mirror.co.uk/incoming/article10847802.ece/ALTERNATES/s810/PAY-Dunkirk-in-colour.jpg",
           },
-          type: "IMAGE",
+          type: "img",
         },
         contentText:
           "The U.S. Surgeon General establishes the position of 'Battalion Surgeon’s Assistant'.",
@@ -50,7 +52,7 @@ const genDataItems = [
             url:
               "https://i2-prod.mirror.co.uk/incoming/article10847802.ece/ALTERNATES/s810/PAY-Dunkirk-in-colour.jpg",
           },
-          type: "IMAGE",
+          type: "img",
         },
         contentText:
           "The American Medical Association (AMA) proposes the training of former US Navy Hospital Corpsmen as assistants to physicians.",

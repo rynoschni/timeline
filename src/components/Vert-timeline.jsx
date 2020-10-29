@@ -1,18 +1,17 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Timeline from "@material-ui/lab/Timeline";
-import TimelineItem from "@material-ui/lab/TimelineItem";
-import TimelineSeparator from "@material-ui/lab/TimelineSeparator";
-import TimelineConnector from "@material-ui/lab/TimelineConnector";
-import TimelineContent from "@material-ui/lab/TimelineContent";
-import TimelineDot from "@material-ui/lab/TimelineDot";
-import TimelineOppositeContent from "@material-ui/lab/TimelineOppositeContent";
-import Paper from "@material-ui/core/Paper";
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: "6px 16px",
+  root: {
+    maxWidth: 750,
   },
   secondaryTail: {
     backgroundColor: theme.palette.secondary.main,
@@ -21,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
     padding: theme.spacing(3),
     margin: "65px 0px",
+  },
+  image: {
+    width: '100%',
+    height: 'auto',
   },
 }));
 
@@ -31,27 +34,42 @@ const VertTimeline = (props) => {
 
   return (
     <main className={classes.content}>
-      <Typography variant="h6" component="h1">
+      <Typography variant="h3" component="h1">
         {yearData.year}
       </Typography>
-      <Timeline align="left">
         
         {yearData.itemsData.map((item) => (
-          <TimelineItem>
-            <TimelineSeparator>
-              <TimelineDot />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent key={item.contentTitle}>
-              <Paper elevation={5} className={classes.paper}>
-                <Typography variant="h6" component="h1">
-                  {item.contentTitle}
-                </Typography>
-              </Paper>
-            </TimelineContent>
-          </TimelineItem>
+          <Card className={classes.root} key={item.id}>
+            <CardActionArea>
+              <CardMedia className={classes.image}
+              component={item.media.type}
+              alt={item.title}
+              image={item.media.source.url}
+              title={item.title}
+              />
+              <CardContent>
+                  <Typography 
+                  gutterBottom variant="h5" component="h2"
+                  >
+                    {item.contentTitle}
+                    <p>{item.contentText}</p>
+                  </Typography>
+                  <Typography 
+                  variant='body2' 
+                  color='textSecondary' 
+                  component='p'
+                  >
+                    {item.contentDetailText}
+                  </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button size='small' color='primary'>
+                Learn More
+              </Button>
+            </CardActions>
+          </Card>
         ))}
-      </Timeline>
     </main>
   );
 };
