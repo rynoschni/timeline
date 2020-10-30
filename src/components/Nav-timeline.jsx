@@ -6,12 +6,10 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -28,6 +26,7 @@ const drawerWidth = 150;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -39,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
+      background: 'white',
+      color: 'black',
     },
   },
   menuButton: {
@@ -58,42 +59,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/**
- * The example data is structured as follows:
- *
- * import image from 'path/to/image.jpg';
- * [etc...]
- *
- * const tileData = [
- *   {
- *     img: image,
- *     title: 'Image',
- *     author: 'author',
- *   },
- *   {
- *     [etc...]
- *   },
- * ];
- */
-
-// const dataItems = [
-//     {
-//       year: "1898",
-//       contentTitle: "US Navy Corps",
-//       media: {
-//         name: "dunkirk beach",
-//         source: {
-//           url: "https://i2-prod.mirror.co.uk/incoming/article10847802.ece/ALTERNATES/s810/PAY-Dunkirk-in-colour.jpg"
-//         },
-//         type: "IMAGE"
-//       },
-//       contentText:
-//         "•	The U.S. Congress authorizes the establishment of the U.S. Navy Hospital Corps.",
-//       contentDetailedText:`On June 17, 1898, during the Spanish-American War, President William McKinley formally approved the establishment of the U.S. Navy Hospital Corps put forth by the US Congress as “A convenient place shall be set apart for the sick and hurt men, to which they are to be removed, and some of the crew shall be appointed to attend them.” There were 25 "charter members" in 1898 and today, the Hospital Corp has the largest rate (rank) in the Navy is one of the most decorated rating in the US Navy.`
-//     },
-//   ];
-
-
 const NavTimeline = (props) => {
   const { window } = props;
   const classes = useStyles();
@@ -111,7 +76,7 @@ const NavTimeline = (props) => {
     setGhostLoad(true)
     setTimeout(() => {
     setGhostLoad(false)
-    },2000)
+    },1500)
     ;
     
   };
@@ -122,6 +87,11 @@ const NavTimeline = (props) => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
+        <Typography
+        
+        >
+          General PA History
+        </Typography>
         {genDataItems.map((item) => (
           <ListItem button key={item.year} type='button' onClick={(e) => _handleYearClick(item)}>
             <ListItemText primary={item.year} />
@@ -133,11 +103,16 @@ const NavTimeline = (props) => {
       </List>
       <Divider />
       <List>
+        <Typography>
+          AAPA History
+        </Typography>
         {aapaItems.map((item, index) => (
-          <ListItem button key={item.year}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={item.year} />
-          </ListItem>
+          <ListItem button key={item.year} type='button' onClick={(e) => _handleYearClick(item)}>
+          <ListItemText primary={item.year} />
+          <ListItemIcon>
+            <ArrowRightIcon />
+          </ListItemIcon>
+        </ListItem>
         ))}
       </List>
     </div>
@@ -159,7 +134,7 @@ const NavTimeline = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h3" noWrap>
             Historical Timeline
           </Typography>
         </Toolbar>
