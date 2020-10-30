@@ -20,13 +20,30 @@ import GhostLoad from './GhostLoad';
 import VertTimeline from './Vert-timeline';
 import genDataItems from '../data/generalData';
 import aapaItems from '../data/aapaData';
+import './style.css';
 
 const drawerWidth = 150;
+
+// const theme = createMuiTheme({
+//   palette: {
+//     primary: {
+//       light: '#008AD2',
+//       main: '#01426a',
+//       accent: '#F99F33'
+//     }
+//   }
+// })
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    
+    palette: {
+      primary: {
+        light: '#008AD2',
+        main: '#01426a',
+        accent: '#F99F33'
+      }
+    }
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -38,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
-      background: 'white',
-      color: 'black',
+      background: '#01426a',
+      color: 'white',
     },
   },
   menuButton: {
@@ -87,8 +104,8 @@ const NavTimeline = (props) => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <Typography
-        
+        <Typography className="aapa-lightBlue"
+
         >
           General PA History
         </Typography>
@@ -103,7 +120,9 @@ const NavTimeline = (props) => {
       </List>
       <Divider />
       <List>
-        <Typography>
+        <Typography
+        className="aapa-lightBlue"
+        >
           AAPA History
         </Typography>
         {aapaItems.map((item, index) => (
